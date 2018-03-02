@@ -1,0 +1,33 @@
+version: '3'
+services:
+        mssql:
+                image: 'microsoft/mssql-server-linux:latest'
+                environment:
+                        ACCEPT_EULA: 'Y'
+                        SA_PASSWORD: 'Innova2018'
+                ports:
+                        - '1433:1433'
+                volumes:
+                        - /home/slin/backups:/backups
+                container_name: 'innova-mssql'
+        rabbitmq:
+                image: 'rabbitmq:3-management'
+                environment:
+                        RABBITMQ_DEFAULT_USER: 'rabbit'
+                        RABBITMQ_DEFAULT_PASS: 'rabbit'
+                ports:
+                        - '15672:15672'
+                        - '4369:4369'
+                        - '5672:5672'
+                        - '25672:25672'
+                container_name: 'innova-rabbitmq'
+                # dataprocess:
+                #build: 'scala-sbt/.'
+                #volumes:
+                #        - /home/slin/dataprocess:/app
+                #links:
+                #        - mssql
+                #        - rabbitmq
+                #command: run
+                #container_name: 'innova-dataprocess'
+
